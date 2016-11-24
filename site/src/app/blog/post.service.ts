@@ -39,11 +39,19 @@ export class PostService {
   }
 
 
-  createPost(post: Post): Observable<any>{
+  createPost(post: Post): Observable<any> {
 
     let url = this.serverUrl + "/posts";
     return this.http.post(url, post, {headers: this.headers}).map(res => res.json()).catch(err => {
 
+      return Observable.throw(err);
+    })
+  }
+
+  updatePost(post: Post): Observable<any> {
+
+    let url = this.serverUrl + "/posts/" + post.id
+    return this.http.put(url, post, {headers: this.headers}).map(res => res.json()).catch(err => {
       return Observable.throw(err);
     })
   }

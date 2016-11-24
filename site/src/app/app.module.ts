@@ -14,6 +14,7 @@ import { PostFormComponent } from './blog/post-form/post-form.component';
 const appRoutes: Routes = [
   {path: 'blog', component: BlogComponent},
   {path: 'blog/:id', component: PostDetailComponent},
+  {path: 'blog/:id/edit', component: PostFormComponent},
   {path: 'blog-add', component: PostFormComponent},
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},

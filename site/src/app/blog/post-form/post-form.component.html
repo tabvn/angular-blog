@@ -1,8 +1,19 @@
+<h1 class="page-title"><span *ngIf="post.id">{{post.title}}</span><span *ngIf="!post.id">Create new post</span> </h1>
+<div class="tab-actions">
+  <ul class="nav nav-tabs">
+    <li *ngIf="post.id"><a routerLink="/blog/{{post.id}}">View</a></li>
+    <li *ngIf="post.id" class="active"><a routerLink="/blog/{{post.id}}/edit">Edit</a></li>
+    <li *ngIf="post.body"><a href="#">Delete</a></li>
+    <li *ngIf="!post.id" class="active"><a routerLink="/blog-add">Create new post</a></li>
+  </ul>
+</div>
+
+
 <form #f="ngForm" (ngSubmit)="onSubmit()">
   <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
   <div class="form-group">
     <label for="post-title">Title</label>
-    <input [(ngModel)]="post.title" name="body" type="text" class="form-control" id="post-title" placeholder="Title">
+    <input [(ngModel)]="post.title" name="title" type="text" class="form-control" id="post-title" placeholder="Title">
   </div>
 
   <div class="form-group">
@@ -10,5 +21,5 @@
     <textarea [(ngModel)]="post.body" class="form-control" cols="5" rows="5" name="body" id="post-body"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Create</button>
+  <button [disabled]="loading" type="submit" class="btn btn-primary"><span *ngIf="post.id">Update</span><span *ngIf="!post.id">Create</span></button>
 </form>

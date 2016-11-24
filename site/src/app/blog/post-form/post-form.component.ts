@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Post} from "../blog/post";
 import {PostService} from "../post.service";
-import {Router} from "@angular/router"; // this thanks to Webstorm :)
+import {Router, ActivatedRoute, Params} from "@angular/router";
+import post = http.post; // this thanks to Webstorm :)
 
 @Component({
   selector: 'app-post-form',
@@ -14,17 +15,36 @@ export class PostFormComponent implements OnInit {
 
   post: Post = new Post();
 
-   errorMessage = "";
+  errorMessage = "";
+  loading = false;
 
-
-  constructor(
-    private postService: PostService,
-    private router: Router
-
-  ) {
+  constructor(private postService: PostService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+
+
+    this.route.params.switchMap((params: Params) => {
+
+
+      let id = params['id'];
+      if (typeof params['id'] !== "undefined" && params['id'] !== null) {
+
+        this.loading = true;
+        return this.postService.getPost(id); // we can see an error if params["id"] is undefined or null. let check..
+      }
+
+    }).subscribe(res => {
+
+      // after get the post detail we set loading to false.
+      this.loading = false;
+      this.post = res as Post; // if post is being edit. we get the id from params , and get detail of the post via postService.
+    }, err => {
+
+      console.log(err);
+    })
 
 
   }
@@ -32,22 +52,47 @@ export class PostFormComponent implements OnInit {
   onSubmit() {
 
 
-    // let do post this data to rest service...
+    // if the post.id is not null that mean we need update the post. otherwise create new post
 
-    this.postService.createPost(this.post).subscribe(res => {
+    if(this.post.id){
 
-      // we got successful the post
-      console.log(res.id); // this is post ID we can use to redirect to view the detail of the post.
+      // do save the post
 
-      // direct to view post
+      this.postService.updatePost(this.post).subscribe(res => {
 
-      this.router.navigate(['/blog', res.id]);
+        // this mean the post has been saved
+        // now we can redirect to the post view.
+        this.router.navigate(['/blog', this.post.id]);
 
-    }, err => {
+      }, err => {
 
-      console.log(err);
-      this.errorMessage = "An error saving the post.";
-    })
+        console.log(err); // this for development only.
+        this.errorMessage = "An error saving the post.";
+      });
+
+
+    }else{
+
+      // let do post this data to rest service...
+
+      this.postService.createPost(this.post).subscribe(res => {
+
+        // we got successful the post
+        console.log(res.id); // this is post ID we can use to redirect to view the detail of the post.
+
+        // direct to view post
+
+        this.router.navigate(['/blog', res.id]);
+
+      }, err => {
+
+        console.log(err);
+        this.errorMessage = "An error saving the post.";
+      });
+
+
+    }
+
 
 
   }

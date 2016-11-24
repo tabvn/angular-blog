@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-.blog-list article{
+.blog-list article {
   border-bottom: 1px solid #eee;
   padding-bottom: 30px;
   margin-bottom: 30px;
 
+}
+
+.tab-actions {
+  margin-bottom: 30px;
+}
+.page-title{
+  margin-bottom: 30px;
 }
