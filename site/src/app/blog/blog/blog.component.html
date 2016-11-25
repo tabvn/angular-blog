@@ -6,3 +6,13 @@
     <div class="post-body">{{post.body}}</div>
   </article>
 </div>
+
+
+<div class="pager">
+  <span *ngIf="!pager.reachedEnd" class="load-more" (click)="loadMore()">
+    <i class="glyphicon glyphicon-refresh" [class.is-loading]="pager.isLoading"></i>
+    <span *ngIf="!pager.isLoading">Load more...</span>
+    <span *ngIf="pager.isLoading">Loading more...</span>
+  </span>
+  <span *ngIf="pager.reachedEnd" class="reached-in">You're reached end of the list.</span>
+</div>

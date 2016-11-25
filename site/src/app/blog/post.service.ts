@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import {Observable} from "rxjs";
 import {Post} from "./blog/post";
+import {isNull} from "util";
 
 @Injectable()
 export class PostService {
@@ -19,9 +20,14 @@ export class PostService {
     'Content-Type': 'application/json',
   });
 
-  getPosts(): Observable<Post[]> {
+  getPosts(filter: string): Observable<Post[]> {
 
+    // in the part we get all the post without filter query, now we need pass the filter
     let url = this.serverUrl + "/posts";
+
+    if(!isNull(filter) && filter !== ""){
+      url = url + '?filter=' + filter;
+    }
     return this.http.get(url, {headers: this.headers}).map(res => res.json()).catch(err => {
 
       return Observable.throw(err);

@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Post} from "../blog/post";
 import {PostService} from "../post.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
-import post = http.post; // this thanks to Webstorm :)
+import post = http.post;
+import {Observable} from "rxjs"; // this thanks to Webstorm :)
 
 @Component({
   selector: 'app-post-form',
@@ -28,13 +29,14 @@ export class PostFormComponent implements OnInit {
 
     this.route.params.switchMap((params: Params) => {
 
-
       let id = params['id'];
       if (typeof params['id'] !== "undefined" && params['id'] !== null) {
+
 
         this.loading = true;
         return this.postService.getPost(id); // we can see an error if params["id"] is undefined or null. let check..
       }
+
 
     }).subscribe(res => {
 
@@ -54,7 +56,7 @@ export class PostFormComponent implements OnInit {
 
     // if the post.id is not null that mean we need update the post. otherwise create new post
 
-    if(this.post.id){
+    if (this.post.id) {
 
       // do save the post
 
@@ -71,7 +73,7 @@ export class PostFormComponent implements OnInit {
       });
 
 
-    }else{
+    } else {
 
       // let do post this data to rest service...
 
@@ -92,7 +94,6 @@ export class PostFormComponent implements OnInit {
 
 
     }
-
 
 
   }
