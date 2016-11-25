@@ -9,6 +9,10 @@ import {Routes, RouterModule} from "@angular/router";
 import {HomeComponent} from './home/home.component';
 import {PostDetailComponent} from './blog/post-detail/post-detail.component';
 import { PostFormComponent } from './blog/post-form/post-form.component';
+import { LoginComponent } from './user/login/login.component';
+import {AuthService} from "./user/auth.service";
+import { ProfileComponent } from './user/profile/profile.component';
+import {UserService} from "./user/user.service"; // this will automatically imported by Webstorm.
 
 
 const appRoutes: Routes = [
@@ -18,6 +22,8 @@ const appRoutes: Routes = [
   {path: 'blog-add', component: PostFormComponent},
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
+  {path: 'user/login', component: LoginComponent},
+  {path: 'user/my-account', component: ProfileComponent}
 
 ];
 
@@ -28,7 +34,9 @@ const appRoutes: Routes = [
     BlogComponent,
     HomeComponent,
     PostDetailComponent,
-    PostFormComponent
+    PostFormComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +44,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -27,26 +27,28 @@ export class PostFormComponent implements OnInit {
   ngOnInit() {
 
 
-    this.route.params.switchMap((params: Params) => {
+    if (this.route.snapshot.params['id']) {
+      this.route.params.switchMap((params: Params) => {
 
-      let id = params['id'];
-      if (typeof params['id'] !== "undefined" && params['id'] !== null) {
-
-
-        this.loading = true;
-        return this.postService.getPost(id); // we can see an error if params["id"] is undefined or null. let check..
-      }
+        let id = params['id'];
+        if (typeof params['id'] !== "undefined" && params['id'] !== null) {
 
 
-    }).subscribe(res => {
+          this.loading = true;
+          return this.postService.getPost(id); // we can see an error if params["id"] is undefined or null. let check..
+        }
 
-      // after get the post detail we set loading to false.
-      this.loading = false;
-      this.post = res as Post; // if post is being edit. we get the id from params , and get detail of the post via postService.
-    }, err => {
 
-      console.log(err);
-    })
+      }).subscribe(res => {
+
+        // after get the post detail we set loading to false.
+        this.loading = false;
+        this.post = res as Post; // if post is being edit. we get the id from params , and get detail of the post via postService.
+      }, err => {
+
+        console.log(err);
+      });
+    }
 
 
   }

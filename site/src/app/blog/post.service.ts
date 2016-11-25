@@ -3,6 +3,7 @@ import {Http, Headers} from "@angular/http";
 import {Observable} from "rxjs";
 import {Post} from "./blog/post";
 import {isNull} from "util";
+import {AuthService} from "../user/auth.service";
 
 @Injectable()
 export class PostService {
@@ -11,14 +12,17 @@ export class PostService {
   serverUrl = "http://0.0.0.0:3000/api";
 
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private authService: AuthService) {
   }
 
 
   headers = new Headers({
 
     'Content-Type': 'application/json',
+    'Authorization': this.authService.getToken(),
   });
+
+
 
   getPosts(filter: string): Observable<Post[]> {
 
