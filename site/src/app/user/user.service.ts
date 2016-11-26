@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import {Observable} from "rxjs";
 import {AuthService} from "./auth.service";
+import {User} from "./user";
 
 @Injectable()
 export class UserService {
@@ -23,7 +24,7 @@ export class UserService {
 
   login(username: string, password: string): Observable<any>{
 
-    let url = this.serverUrl + "/Users/login?include=user";
+    let url = this.serverUrl + "/accounts/login?include=user";
 
     return this.http.post(url, {username: username, password: password}, {headers: this.headers}).map(res => res.json()).catch(err => {
 
@@ -31,9 +32,19 @@ export class UserService {
     })
   }
 
+  register(user: User): Observable<any>{
+    let url = this.serverUrl + "/accounts";
+    this.headers.delete('Authorization');
+
+    return this.http.post(url, user, {headers: this.headers}).map(res => res.json()).catch(err => {
+
+      return Observable.throw(err);
+    });
+  }
+
   logout(): Observable<any>{
 
-    let url = this.serverUrl + '/Users/logout';
+    let url = this.serverUrl + '/accounts/logout';
     let data = {accessTokenID: this.authService.getToken()};
     return this.http.post(url, data, {headers: this.headers}).map(res => res.json()).catch(err => {
      return Observable.throw(err);

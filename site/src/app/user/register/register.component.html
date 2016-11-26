@@ -1,0 +1,27 @@
+<form #f="ngForm" (ngSubmit)="onRegister()">
+  <div class="form-group">
+    <label for="user-firstname">First Name</label>
+    <input [(ngModel)]="user.firstName" name="firstname" type="text" class="form-control" id="user-firstname" placeholder="First name">
+  </div>
+
+  <div class="form-group">
+    <label for="user-firstname">Last Name</label>
+    <input [(ngModel)]="user.lastName" name="lastname" type="text" class="form-control" id="user-lastname" placeholder="Last name">
+  </div>
+
+
+  <div class="form-group">
+    <label for="user-username">Username</label>
+    <input [(ngModel)]="user.username" name="username" type="text" class="form-control" id="user-username" placeholder="Username" required>
+  </div>
+
+  <div class="form-group">
+    <label for="user-email">Email address</label>
+    <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="user-email" placeholder="Email" required>
+  </div>
+  <div class="form-group">
+    <label for="user-password">Password</label>
+    <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="user-password" placeholder="Password" required>
+  </div>
+  <button class="btn btn-primary" type="submit">Create an account</button>
+</form>

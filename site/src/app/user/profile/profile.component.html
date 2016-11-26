@@ -1,7 +1,9 @@
-<div class="my-account" *ngIf="loggedIn">
+<div class="my-account" *ngIf="user">
   <h3>Welcome: {{user.username}}</h3>
   <div>
     <ul>
+      <li>First Name: {{user.firstName}}</li>
+      <li>Last Name: {{user.lastName}}</li>
       <li>email: {{user.email}}</li>
     </ul>
   </div>
