@@ -14,8 +14,9 @@ Build Blog with Angular 2 + Strongloop(Loopback) Mongodb
 * Clone project
 ```python
 git clone git@github.com:tabvn/angular-blog.git blog
-cd blog
+cd blog/api
 npm install
+
 ```
 * Config database connection in server/datasources.json must change the info.
 * run the api server 
@@ -26,6 +27,7 @@ npm start
 * Run the angular 2 app by open new tab in terminal 
 ```python
 cd ../site
+npm install 
 npm start
 ```
 
