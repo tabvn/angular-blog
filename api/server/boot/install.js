@@ -1,6 +1,6 @@
 'use strict';
 
-var installed = false; // set to the true if we have ran installed before.
+var installed = true; // set to the true if we have ran installed before.
 module.exports = function (app) {
 
 

@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Post} from "./blog/post";
 import {isNull} from "util";
 import {AuthService} from "../user/auth.service";
+import {User} from "../user/user";
 
 @Injectable()
 export class PostService {
@@ -51,7 +52,10 @@ export class PostService {
 
   createPost(post: Post): Observable<any> {
 
-    let url = this.serverUrl + "/posts";
+    //http://0.0.0.0:3000/api/accounts/5839b48fbe2d9cf0045f79a2/posts
+    let user = this.authService.getCurrentUser() as User;
+    let userId = user.id;
+    let url = this.serverUrl + "/accounts/"+ userId+"/posts";
     return this.http.post(url, post, {headers: this.headers}).map(res => res.json()).catch(err => {
 
       return Observable.throw(err);
