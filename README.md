@@ -1,4 +1,5 @@
-# angular-blog
+# Build your own blog with Angular 2 and StrongLoop(Loopback) & Mongodb.
+
 Tutorial build  blog with Anglar 2, Loopback (Strongloop)
 
 Todos: 
