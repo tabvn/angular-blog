@@ -33,8 +33,8 @@ export class AppComponent implements OnInit{
       if(user){
         // this mean user has logged in.
         this.loggedIn = true;
+        this.user = user;
       }else{
-
         // user has logged out.
         this.loggedIn = false;
       }
