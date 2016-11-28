@@ -17,8 +17,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.user = this.authService.getCurrentUser();
 
-    console.log(this.user);
-
     if(this.user === null){
 
       // redirect to the login page

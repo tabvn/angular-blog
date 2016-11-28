@@ -16,7 +16,7 @@
           <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
           <li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
           <li class="dropdown">
-            <a routerLink="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                aria-haspopup="true" aria-expanded="false">My account <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li *ngIf="loggedIn"><a (click)="logout()">Logout

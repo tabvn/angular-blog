@@ -1,18 +1,27 @@
 import {Injectable} from '@angular/core';
 import {User} from "./user";
 import {isNullOrUndefined} from "util";
+import {Observable, Subject} from "rxjs";
 
 @Injectable()
 export class AuthService {
 
 
 
+  public onAuthChange$: Subject<User>;
   constructor() {
 
+
+    this.onAuthChange$ = new Subject();
   }
 
 
+
   setUser(user: User) {
+
+
+
+    this.onAuthChange$.next(user);
 
     let userString = JSON.stringify(user);
     localStorage.setItem("currentUser", userString);
@@ -44,7 +53,7 @@ export class AuthService {
 
   logout(){
 
-
+    this.onAuthChange$.next(null);
     // we need also request logout to the server api
 
     localStorage.removeItem("currentUser");
