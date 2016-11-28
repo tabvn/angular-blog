@@ -20,7 +20,7 @@
                aria-haspopup="true" aria-expanded="false">My account <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li *ngIf="loggedIn"><a (click)="logout()">Logout
-                <small>{{user.email}}</small>
+                <small *ngIf="user.email">{{user.email}}</small>
               </a></li>
               <li *ngIf="!loggedIn"><a routerLink="/user/login">Login</a></li>
               <li *ngIf="!loggedIn"><a routerLink="/user/register">Create an account</a></li>
