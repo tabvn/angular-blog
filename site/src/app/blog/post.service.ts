@@ -43,6 +43,26 @@ export class PostService {
     });
   }
 
+  search(text: string): Observable<any> {
+
+    let query = {
+      where: {
+        or: [{title: {like: text, options: "i"}}],
+      }
+    };
+
+    let filter = encodeURI(JSON.stringify(query));
+
+    let url = this.serverUrl + "/posts?filter=" + filter;
+
+    return this.http.get(url, {headers: this.headers}).map(res => res.json()).catch(err => {
+
+      return Observable.throw(err);
+    });
+
+
+  }
+
 
   getPost(id: string): Observable<Post> {
 

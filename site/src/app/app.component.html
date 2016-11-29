@@ -30,6 +30,20 @@
             </ul>
           </li>
         </ul>
+
+        <div class="nav navbar-nav navbar-right">
+            <div class="search-block">
+              <input #searchTextBox (keyup)="onKeyup(searchTextBox.value)" class="form-control" name="search" placeholder="Search...">
+              <div class="dropdown" [class.open]="!autocompleteBox.hide">
+
+                <ul *ngIf="posts.length" class="dropdown-menu">
+                  <li (click)="showDetail(post)" *ngFor="let post of posts">
+                    {{post.title}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </div>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
   </nav>

@@ -4,11 +4,15 @@ import {AuthService} from "./user/auth.service";
 import {isNullOrUndefined} from "util";
 import {UserService} from "./user/user.service";
 import {Router} from "@angular/router";
+import {Subject} from "rxjs";
+import {PostService} from "./blog/post.service";
+import {Post} from "./blog/blog/post";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [PostService]
 })
 export class AppComponent implements OnInit{
   title = 'app works!';
@@ -16,13 +20,44 @@ export class AppComponent implements OnInit{
   user: User = new User();
   loggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) {
+  private searchTerm = new Subject<string>();
+
+
+
+  posts: Post[] = [];
+
+  autocompleteBox = {hide: true};
+
+
+  constructor(private postService: PostService, private authService: AuthService, private userService: UserService, private router: Router) {
 
     this.user = this.authService.getCurrentUser();
     if (this.user && !isNullOrUndefined(this.user)) {
 
       this.loggedIn = true;
     }
+
+
+    this.searchTerm.debounceTime(200).distinctUntilChanged().subscribe(searchTerm => {
+
+
+      this.postService.search(searchTerm).subscribe(response => {
+
+        this.posts = response as Post[];
+
+        this.autocompleteBox.hide = false;
+
+      }, err => {
+
+        console.log(err);
+
+      });
+
+
+    });
+
+
+
 
 
   }
@@ -56,5 +91,22 @@ export class AppComponent implements OnInit{
 
   }
 
+
+  onKeyup(searchText: string){
+
+    if(searchText !== ""){
+      this.searchTerm.next(searchText);
+    }
+
+  }
+
+  showDetail(post: Post){
+
+    this.autocompleteBox.hide = true;
+
+    this.router.navigate(['/blog', post.id]);
+
+
+  }
 
 }

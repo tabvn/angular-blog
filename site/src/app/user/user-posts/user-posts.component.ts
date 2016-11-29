@@ -19,7 +19,7 @@ export class UserPostsComponent implements OnInit {
   pageTitle: string = "";
   posts: Post[] = [];
 
-  constructor(private title: Title, private userService: UserService, , private authService: AuthService, private postService: PostService, private route: ActivatedRoute) {
+  constructor(private title: Title, private userService: UserService, private authService: AuthService, private postService: PostService, private route: ActivatedRoute) {
 
 
 
