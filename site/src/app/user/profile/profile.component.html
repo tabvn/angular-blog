@@ -1,3 +1,10 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a routerLink="/user/my-account">My account</a></li>
+  <li><a routerLink="/user/{{user.id}}/blog">My posts</a></li>
+</ul>
+
+
+
 <div class="my-account" *ngIf="user">
   <h3>Welcome: {{user.username}}</h3>
   <div>

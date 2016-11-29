@@ -24,13 +24,17 @@ export class PostService {
   });
 
 
+  updateHeaders() {
+
+    this.headers.set('Authorization', this.authService.getToken());
+  }
 
   getPosts(filter: string): Observable<Post[]> {
 
     // in the part we get all the post without filter query, now we need pass the filter
     let url = this.serverUrl + "/posts";
 
-    if(!isNull(filter) && filter !== ""){
+    if (!isNull(filter) && filter !== "") {
       url = url + '?filter=' + filter;
     }
     return this.http.get(url, {headers: this.headers}).map(res => res.json()).catch(err => {
@@ -49,13 +53,31 @@ export class PostService {
     });
   }
 
+  getUserPosts(userId: string, filter: string) {
+
+
+    // in the part we get all the post without filter query, now we need pass the filter
+    let url = this.serverUrl + "/accounts/" + userId + "/posts";
+
+    if (!isNull(filter) && filter !== "") {
+      url = url + '?filter=' + filter;
+    }
+    return this.http.get(url, {headers: this.headers}).map(res => res.json()).catch(err => {
+
+      return Observable.throw(err);
+    });
+
+  }
+
 
   createPost(post: Post): Observable<any> {
 
-    //http://0.0.0.0:3000/api/accounts/5839b48fbe2d9cf0045f79a2/posts
+
+    this.updateHeaders();
+
     let user = this.authService.getCurrentUser() as User;
     let userId = user.id;
-    let url = this.serverUrl + "/accounts/"+ userId+"/posts";
+    let url = this.serverUrl + "/accounts/" + userId + "/posts";
     return this.http.post(url, post, {headers: this.headers}).map(res => res.json()).catch(err => {
 
       return Observable.throw(err);
@@ -63,6 +85,8 @@ export class PostService {
   }
 
   updatePost(post: Post): Observable<any> {
+
+    this.updateHeaders();
 
     let url = this.serverUrl + "/posts/" + post.id
     return this.http.put(url, post, {headers: this.headers}).map(res => res.json()).catch(err => {

@@ -1,0 +1,19 @@
+<h1>{{pageTitle}}</h1>
+<ul class="nav nav-tabs">
+  <li><a routerLink="/user/my-account">My account</a></li>
+  <li class="active"><a routerLink="/user/{{user.id}}/blog">My posts</a></li>
+</ul>
+
+<div *ngIf="user" class="user-posts">
+  <p>Welsome to {{user.firstName}}' Blog.</p>
+
+  <article *ngFor="let post of posts" class="user-blog-post post">
+    <h2>{{post.title}}</h2>
+    <div class="meta">
+      <span>Author: {{post.account.username}}</span>
+    </div>
+    <div class="post-body">{{post.body}}</div>
+  </article>
+</div>
+
+

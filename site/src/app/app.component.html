@@ -19,6 +19,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                aria-haspopup="true" aria-expanded="false">My account <span class="caret"></span></a>
             <ul class="dropdown-menu">
+              <li *ngIf="loggedIn"><a routerLink="/user/my-account">My profile</a></li>
               <li *ngIf="loggedIn"><a (click)="logout()">Logout
                 <small *ngIf="user.email">{{user.email}}</small>
               </a></li>

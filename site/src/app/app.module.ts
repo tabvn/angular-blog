@@ -13,7 +13,8 @@ import { LoginComponent } from './user/login/login.component';
 import {AuthService} from "./user/auth.service";
 import { ProfileComponent } from './user/profile/profile.component';
 import {UserService} from "./user/user.service";
-import { RegisterComponent } from './user/register/register.component'; // this will automatically imported by Webstorm.
+import { RegisterComponent } from './user/register/register.component';
+import { UserPostsComponent } from './user/user-posts/user-posts.component';
 
 
 const appRoutes: Routes = [
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'user/login', component: LoginComponent},
   {path: 'user/my-account', component: ProfileComponent},
-  {path: 'user/register', component: RegisterComponent}
+  {path: 'user/register', component: RegisterComponent},
+  {path: 'user/:id/blog', component: UserPostsComponent}
 
 ];
 
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     PostFormComponent,
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserPostsComponent
   ],
   imports: [
     BrowserModule,

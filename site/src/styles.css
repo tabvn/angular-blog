@@ -5,6 +5,10 @@
   margin-bottom: 30px;
 
 }
+.user-blog-post{
+  border-bottom: 1px solid #eee;
+  padding-bottom: 30px;
+}
 
 .tab-actions {
   margin-bottom: 30px;

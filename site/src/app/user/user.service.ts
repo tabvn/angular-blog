@@ -21,6 +21,14 @@ export class UserService {
 
   }
 
+  getUserById(id: string): Observable<User>{
+    let url = this.serverUrl + "/accounts/" + id;
+    return this.http.get(url, {headers: this.headers}).map(res => res.json()).catch(err => {
+
+      return Observable.throw(err);
+    });
+  }
+
 
   login(username: string, password: string): Observable<any>{
 
