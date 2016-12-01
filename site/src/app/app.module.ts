@@ -15,6 +15,7 @@ import { ProfileComponent } from './user/profile/profile.component';
 import {UserService} from "./user/user.service";
 import { RegisterComponent } from './user/register/register.component';
 import { UserPostsComponent } from './user/user-posts/user-posts.component';
+import { EditorComponent } from './helpers/editor/editor.component';
 
 
 const appRoutes: Routes = [
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    UserPostsComponent
+    UserPostsComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,

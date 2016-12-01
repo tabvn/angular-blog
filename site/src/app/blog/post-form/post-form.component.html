@@ -18,7 +18,7 @@
 
   <div class="form-group">
     <label for="post-body">Body</label>
-    <textarea [(ngModel)]="post.body" class="form-control" cols="5" rows="5" name="body" id="post-body"></textarea>
+    <text-editor [value]="defaultBodyValue" [elementId]="'post-body'" (onEditorKeyup)="onBodyTextEditorKeyUp($event)"></text-editor>
   </div>
 
   <button [disabled]="loading" type="submit" class="btn btn-primary"><span *ngIf="post.id">Update</span><span *ngIf="!post.id">Create</span></button>

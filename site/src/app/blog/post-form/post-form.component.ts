@@ -18,6 +18,8 @@ export class PostFormComponent implements OnInit {
 
   errorMessage = "";
   loading = false;
+  defaultBodyValue: string = "";
+
 
   constructor(private postService: PostService,
               private router: Router,
@@ -44,6 +46,10 @@ export class PostFormComponent implements OnInit {
         // after get the post detail we set loading to false.
         this.loading = false;
         this.post = res as Post; // if post is being edit. we get the id from params , and get detail of the post via postService.
+
+        this.defaultBodyValue = this.post.body;
+
+
       }, err => {
 
         console.log(err);
@@ -98,6 +104,12 @@ export class PostFormComponent implements OnInit {
     }
 
 
+  }
+
+
+  onBodyTextEditorKeyUp(textValue){
+
+    this.post.body = textValue;
   }
 
 }
