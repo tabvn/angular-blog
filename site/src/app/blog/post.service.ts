@@ -5,6 +5,7 @@ import {Post} from "./blog/post";
 import {isNull} from "util";
 import {AuthService} from "../user/auth.service";
 import {User} from "../user/user";
+import {Category} from "./category.model";
 
 @Injectable()
 export class PostService {
@@ -71,6 +72,13 @@ export class PostService {
 
       return Observable.throw(err);
     });
+  }
+
+  getCategories(): Observable<Category[]>{
+
+    let url = this.serverUrl + '/categories';
+
+    return this.http.get(url, {headers: this.headers}).map(res => res.json() as Category[]).catch(err => Observable.throw(err));
   }
 
   getUserPosts(userId: string, filter: string) {

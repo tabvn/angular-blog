@@ -3,7 +3,8 @@ import {Post} from "../blog/post";
 import {PostService} from "../post.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
 import post = http.post;
-import {Observable} from "rxjs"; // this thanks to Webstorm :)
+import {Observable} from "rxjs";
+import {Category} from "../category.model"; // this thanks to Webstorm :)
 
 @Component({
   selector: 'app-post-form',
@@ -19,6 +20,8 @@ export class PostFormComponent implements OnInit {
   errorMessage = "";
   loading = false;
   defaultBodyValue: string = "";
+
+  categories: Category[] = [];
 
 
   constructor(private postService: PostService,
@@ -55,6 +58,17 @@ export class PostFormComponent implements OnInit {
         console.log(err);
       });
     }
+
+
+    this.postService.getCategories().subscribe(res => {
+
+      this.categories = res;
+
+    }, err => {
+
+      console.log(err);
+
+    });
 
 
   }
@@ -107,7 +121,7 @@ export class PostFormComponent implements OnInit {
   }
 
 
-  onBodyTextEditorKeyUp(textValue){
+  onBodyTextEditorKeyUp(textValue) {
 
     this.post.body = textValue;
   }

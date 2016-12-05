@@ -17,6 +17,14 @@
   </div>
 
   <div class="form-group">
+
+    <label for="category">Category</label>
+    <select class="form-control" name="category" id="category" [(ngModel)]="post.categoryId">
+      <option *ngFor="let cat of categories" [ngValue]="cat.id">{{cat.title}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
     <label for="post-body">Body</label>
     <text-editor [value]="defaultBodyValue" [elementId]="'post-body'" (onEditorKeyup)="onBodyTextEditorKeyUp($event)"></text-editor>
   </div>
