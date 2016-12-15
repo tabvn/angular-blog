@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PostService} from "../post.service";
 import {Post} from "./post";
 import {isNullOrUndefined} from "util";
+import {Category} from "../category.model";
 
 @Component({
   selector: 'app-blog',
@@ -15,6 +16,7 @@ export class BlogComponent implements OnInit {
   title: string = "Blog";
   posts: Post[] = [];
 
+  categories: Category[] = [];
 
   pager = {
     limit: 2, // this is default number of posts load one time.
@@ -35,6 +37,19 @@ export class BlogComponent implements OnInit {
     // do request and get all blog entries
 
    this.getAll();
+
+   // get categories
+
+    this.postService.getCategories().subscribe(res => {
+
+      this.categories = res as Category[];
+
+
+
+    }, err => {
+
+      console.log(err);
+    });
 
 
   }

@@ -6,6 +6,7 @@ import {isNull} from "util";
 import {AuthService} from "../user/auth.service";
 import {User} from "../user/user";
 import {Category} from "./category.model";
+import {Comment} from "./comment/comment";
 
 @Injectable()
 export class PostService {
@@ -65,20 +66,42 @@ export class PostService {
   }
 
 
-  getPost(id: string): Observable<Post> {
+  addComment(comment: Comment): Observable<any>{
 
+    let url = this.serverUrl + '/posts/'+comment.postId+'/comments';
+    return this.http.post(url, comment, {headers: this.headers}).map(res => res.json()).catch(err => Observable.throw(err));
+  }
+
+  getPost(id: string, filter?: string): Observable<Post> {
     let url = this.serverUrl + "/posts/" + id;
+    if(filter){
+      url = this.serverUrl + "/posts/" + id + "?filter=" + filter;
+    }
     return this.http.get(url, {headers: this.headers}).map(res => res.json() as Post).catch(err => {
 
       return Observable.throw(err);
     });
   }
 
-  getCategories(): Observable<Category[]>{
+  getCategories(): Observable<Category[]> {
 
     let url = this.serverUrl + '/categories';
 
     return this.http.get(url, {headers: this.headers}).map(res => res.json() as Category[]).catch(err => Observable.throw(err));
+  }
+
+  getCategoryById(id: string, filter?: string): Observable<Category> {
+
+    let url = this.serverUrl + '/categories/' + id + '?filter=' + filter;
+    return this.http.get(url, {headers: this.headers}).map(res => res.json() as Category).catch(err => Observable.throw(err));
+  }
+
+  getPostByCategoryId(id: string): Observable<Post[]> {
+
+
+    let url = this.serverUrl + '/categories/' + id + '/posts';
+
+    return this.http.get(url, {headers: this.headers}).map(res => res.json() as Post[]).catch(err => Observable.throw(err));
   }
 
   getUserPosts(userId: string, filter: string) {

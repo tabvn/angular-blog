@@ -25,6 +25,11 @@
       "type": "belongsTo",
       "model": "category",
       "foreignKey": ""
+    },
+    "comments": {
+      "type": "hasMany",
+      "model": "comment",
+      "foreignKey": ""
     }
   },
   "acls": [
@@ -46,6 +51,21 @@
       "principalId": "$everyone",
       "permission": "ALLOW"
     }
+    ,
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "__create__comments"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "__delete__comments"
+    }
+
+
   ],
   "methods": {}
 }
